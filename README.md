@@ -13,16 +13,10 @@
 
 ## Install
 
-First, install [Yeoman](http://yeoman.io) and generator-jsmodules using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-jsmodules using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)):
 
 ```bash
 npm install -g yo generator-jsmodules
-```
-
-Then generate your new project:
-
-```bash
-yo jsmodules
 ```
 
 ## Usage
