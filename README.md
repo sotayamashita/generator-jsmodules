@@ -2,12 +2,9 @@
 [npm-url]: https://npmjs.org/package/generator-jsmodules
 [travis-image]: https://travis-ci.org/sotayamashita/generator-jsmodules.svg?branch=master
 [travis-url]: https://travis-ci.org/sotayamashita/generator-jsmodules
-[daviddm-image]: https://david-dm.org/sotayamashita/generator-jsmodules.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/sotayamashita/generator-jsmodules
 [yo]: https://github.com/yeoman/yo
-[me]: https://github.com/sotayamashita
 
-# generator-jsmodules [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-jsmodules [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 > Scaffold out a node module
 
@@ -46,4 +43,4 @@ $ yo jsmodules --help
 
 ## License
 
-MIT © [Sota Yamashita][me]
+MIT © Sota Yamashita
