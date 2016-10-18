@@ -1,0 +1,13 @@
+### https://github.com/nodejs/nodejs.org/blob/a3d33da1292dd9b911948601133db3e83ab2b2f9/.editorconfig
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false

@@ -2,12 +2,12 @@
   "name": "generator-jsmodules",
   "version": "0.0.1",
   "description": "Scaffold out a node module",
-  "repository": "sotayamashita/generator-jsmodules",
-  "license": "MIT",
-  "author": {
-    "name": "Sota Yamashita",
-    "url": "github.com/sotayamashita"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sotayamashita/generator-jsmodules.git"
   },
+  "license": "MIT",
+  "author": "Sota Yamashita (github.com/sotayamashita)",
   "engines": {
     "node": ">=4"
   },
@@ -37,6 +37,10 @@
   ],
   "dependencies": {
     "chalk": "^1.0.0",
+    "humanize-url": "^1.0.1",
+    "normalize-url": "^1.6.1",
+    "superb": "^1.3.0",
+    "underscore": "^1.8.3",
     "yeoman-generator": "^0.24.1",
     "yosay": "^1.0.0"
   },
@@ -59,5 +63,9 @@
     "env": {
       "mocha": true
     }
+  },
+  "homepage": "https://github.com/sotayamashita/generator-jsmodules#readme",
+  "directories": {
+    "test": "test"
   }
 }

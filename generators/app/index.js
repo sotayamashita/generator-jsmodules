@@ -1,36 +1,78 @@
 'use strict';
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+const superb = require('superb');
+const normalizeUrl = require('normalize-url');
+const humanizeUrl = require('humanize-url');
+const yeoman = require('yeoman-generator');
+const chalk = require('chalk');
+const yosay = require('yosay');
+const _s = require('underscore.string');
 
-module.exports = yeoman.Base.extend({
-  prompting: function () {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the posh ' + chalk.red('generator-jsmodules') + ' generator!'
-    ));
+module.exports = class extends yeoman.Base {
+  init() {
+    return this.prompt([
+      {
+        name: 'moduleName',
+        message: 'What do you want to name your module?',
+        default: _s.slugify(this.appname),
+        filter: x => moduleName.slugify(x),
+      },
+      {
+        name: 'moduleDescription',
+        message: 'What is your module description?',
+        default: `My ${superb()} module`,
+      },
+      {
+        name: 'githubUsername',
+        message: 'What is your GitHub username?',
+        store: true,
+        validate: x => x.length > 0 ? true : 'You have to provide a username',
+        when: () => !this.options.org,
+      },
+      {
+        name: 'website',
+        message: 'What is the URL of your website?',
+        store: true,
+        validate: x => x.length > 0 ? true : 'You have to provide a website URL',
+        filter: x => normalizeUrl(x)
+      },
+      {
+        name: 'cli',
+        message: 'Do you need a CLI?',
+        type: 'confirm',
+        default: Boolean(this.options.cli),
+        when: () => this.options.cli === undefined
+      },
+    ]).then(props => {
+      const or = (option, prop) => this.options[option] === undefined ? props[prop || option] : this.options[option];
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+      const cli = or('cli');
+      const repoName = moduleName.repoName(props.moduleName);
 
-    return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    }.bind(this));
-  },
+      const mv = (from, to) => {
+        this.fs.move(this.destinationPath(from), this.destinationPath(to));
+      };
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  },
+      this.fs.copyTpl([
+        `${this.templatePath()}/**`,
+        '!**/cli.js'
+      ], this.destinationPath(), tpl);
 
-  install: function () {
-    this.installDependencies();
+      if (props.cli) {
+        this.fs.copyTpl(this.templatePath('cli.js'), this.destinationPath('cli.js'), tpl);
+      }
+
+      mv('editorconfig', '.editorconfig');
+      mv('gitignore', '.gitignore');
+      mv('travis.yml', '.travis.yml');
+      mv('_package.json', 'package.json');
+    });
   }
-});
+
+  git() {
+    this.spawnCommandSync('git', ['init']);
+  }
+
+  install() {
+    this.installDependencies({bower: false});
+  }
+};
